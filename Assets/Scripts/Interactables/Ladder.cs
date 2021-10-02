@@ -1,65 +1,52 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class FirePole : InteractableBase
+public class Ladder : InteractableBase
 {
-    public float fallSpeed;
-    public float topSpeed;
+    public float climbSpeed;
+    private bool _flip;
     
     protected override CharacterController CharacterController { get; set; }
     protected override bool Interacting { get; set; }
     protected override bool InteractCooldown { get; set; }
-    
-    private Vector2 _topPosition;
-    private Vector2 _endPosition;
 
-    private float _speed;
-
-    // Start is called before the first frame update
-    protected override void Start()
-    {
-        base.Start();
-        
-        var spriteBounds = GetSpriteBounds();
-        _topPosition = spriteBounds.max;
-        _topPosition.x = spriteBounds.center.x;
-        _endPosition = spriteBounds.min;
-        _endPosition.x = spriteBounds.center.x;
-    }
-
-    // Update is called once per frame
     private void Update()
     {
-        if (!Interacting)
+        if (Interacting == false)
             return;
 
         if (InteractCooldown)
         {
             InteractCooldown = false;
         }
-        else if(Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             StopInteract();
             return;
         }
-
-        var characterPos = CharacterController.transform.position;
-
-        if (characterPos.y <= _endPosition.y + 1)
-        {
-            StopInteract();
-            return;
-        }
-
-        _speed += fallSpeed * Time.deltaTime;
         
-        characterPos += Vector3.down * Mathf.Min(topSpeed, _speed);
-
-        CharacterController.transform.position = characterPos;
+        if (_flip)
+        {
+            if (!Input.GetKeyDown(KeyCode.D)) 
+                return;
+            CharacterController.transform.position += Vector3.up * climbSpeed;
+            _flip = !_flip;
+            CharacterController.SetColor(Color.red);
+        }
+        else
+        {
+            if (!Input.GetKeyDown(KeyCode.A)) 
+                return;
+            CharacterController.transform.position += Vector3.up * climbSpeed;
+            _flip = !_flip;
+            CharacterController.SetColor(Color.blue);
+        }
     }
 
     public override void Interact(CharacterController characterController)
     {
-        Debug.Log("Interacted");
         CharacterController = characterController;
 
         CharacterController.SetLocked(true);
@@ -67,15 +54,14 @@ public class FirePole : InteractableBase
         pos.x = transform.position.x;
         CharacterController.transform.position = pos;
         
+        CharacterController.SetColor(Color.red);
         CharacterController.SetSpriteOrder(GetSortingOrder() + 1);
-        CharacterController.SetColor(Color.yellow);
         Interacting = true;
         InteractCooldown = true;
     }
-
+    
     protected override void StopInteract()
     {
-        _speed = 0f;
         Interacting = false;
         CharacterController.SetLocked(false);
         CharacterController.SetColor(Color.white);
