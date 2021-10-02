@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class Prototype : MonoBehaviour
 {
     public Rigidbody TestBall;
+
+    public Rigidbody[] affectors;
+    
     private Vector3 _ballStartPosition;
 
     public Transform arrowSpriteTransform;
@@ -23,20 +27,26 @@ public class Prototype : MonoBehaviour
 
     public bool useAltMove;
 
-    private float _startingGravity;
-    public float gravityMult = 1f;
-    public float waveTime = 2f;
+    [Header("Explosion")]
+    public float explosionForce;
+    public float explosionRadius;
+    public Vector3 explosionLocation1;
+    public Vector3 explosionLocation2;
+
 
     // Start is called before the first frame update
     private void Start()
     {
-        _startingGravity = Physics.gravity.magnitude;
         _ballStartPosition = TestBall.transform.position;
 
         var halfScale = plateRigidbody.transform.localScale.x / 2f;
         
         leftHandReferenceTransform.position = Vector3.left * halfScale;
         rightHandReferenceTransform.position = Vector3.right * halfScale;
+
+        _explosionTimer = explosionTime;
+        _flipExplosion = Random.value >= 0.5f;
+        UpdateVisual();
     }
 
     // Update is called once per frame
@@ -50,24 +60,43 @@ public class Prototype : MonoBehaviour
         else
             MainMovement();
 
-        arrowSpriteTransform.up = Physics.gravity;
+        ExplosionUpdate();
     }
 
     private void FixedUpdate()
     {
-        UpdateGravity();
-        
         UpdatePlate();
         CheckBall();
     }
 
-    private void UpdateGravity()
+    private bool _flipExplosion;
+    public float explosionTime = 4;
+    private float _explosionTimer;
+    private void ExplosionUpdate()
     {
-        var t = Mathf.PingPong(Time.time + waveTime / 2f, waveTime);
+        if (_explosionTimer > 0f)
+        {
+            _explosionTimer -= Time.deltaTime;
+            return;
+        }
 
-        var angle = Mathf.Lerp(-10.125f,10.125f, t / waveTime);
+        _explosionTimer = explosionTime;
+
+        foreach (var affector in affectors)
+        {
+            affector.AddExplosionForce(explosionForce, _flipExplosion ? explosionLocation2 : explosionLocation1, 3f);
+        }
         
-        Physics.gravity = (Quaternion.Euler(0,0,angle) * Vector3.down) * _startingGravity * gravityMult; 
+        
+        _flipExplosion = !_flipExplosion;
+        
+        UpdateVisual();
+    }
+
+    private void UpdateVisual()
+    {
+        arrowSpriteTransform.position = _flipExplosion ? explosionLocation2 : explosionLocation1;
+        arrowSpriteTransform.up = _flipExplosion ? Vector3.left : Vector3.right;
     }
 
     //====================================================================================================================//
@@ -166,8 +195,12 @@ public class Prototype : MonoBehaviour
         
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(rightHandReferenceTransform.position, 0.2f);
-        
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(new Vector3(0f, 3f, 0f), new Vector3(0f, 3f, 0f) + Physics.gravity.normalized);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(explosionLocation1, explosionRadius);
+        Gizmos.DrawWireSphere(explosionLocation2, explosionRadius);
+
+
+
     }
 }

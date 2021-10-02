@@ -262,7 +262,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 655769963}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 41460aa948e4a0e4dbc46154220ec469, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -467,7 +467,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889236337}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 41460aa948e4a0e4dbc46154220ec469, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -710,7 +710,7 @@ Transform:
   m_GameObject: {fileID: 1197532813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.02, z: 1}
+  m_LocalScale: {x: 2, y: 0.02, z: 2}
   m_Children:
   - {fileID: 1948948771}
   - {fileID: 121315333}
@@ -806,7 +806,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430299519}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 41460aa948e4a0e4dbc46154220ec469, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -982,7 +982,7 @@ Transform:
   m_GameObject: {fileID: 1683654417}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.29, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -1017,6 +1017,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TestBall: {fileID: 1683654418}
+  affectors:
+  - {fileID: 1683654418}
+  - {fileID: 889236338}
+  - {fileID: 655769964}
+  - {fileID: 1430299520}
   arrowSpriteTransform: {fileID: 1975246230}
   plateRigidbody: {fileID: 1197532818}
   leftHandReferenceTransform: {fileID: 1427742604}
@@ -1025,8 +1030,11 @@ MonoBehaviour:
   maxHeight: 3
   moveSpeed: 2
   useAltMove: 1
-  gravityMult: 1
-  waveTime: 3
+  explosionForce: 100
+  explosionRadius: 2.19
+  explosionLocation1: {x: -2, y: 1, z: 0}
+  explosionLocation2: {x: 2, y: 1, z: 0}
+  explosionTime: 4
 --- !u!4 &1781487782
 Transform:
   m_ObjectHideFlags: 0
