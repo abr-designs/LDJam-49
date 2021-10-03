@@ -65,9 +65,10 @@ public class FirePole : InteractableBase
         CharacterController.transform.position = pos;
         
         CharacterController.SetSpriteOrder(GetSortingOrder() + 1);
-        CharacterController.SetColor(Color.yellow);
         Interacting = true;
         InteractCooldown = true;
+        
+        CharacterController.Animator.StartAnimation("Slide");
     }
 
     protected override void StopInteract()
@@ -75,7 +76,6 @@ public class FirePole : InteractableBase
         _speed = 0f;
         Interacting = false;
         CharacterController.SetLocked(false);
-        CharacterController.SetColor(Color.white);
         CharacterController.SetSpriteOrder(0);
         CharacterController = null;
     }

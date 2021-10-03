@@ -46,19 +46,20 @@ public class Ladder : InteractableBase
                 return;
             CharacterController.transform.position += Vector3.up * climbSpeed;
             _flip = !_flip;
-            CharacterController.SetColor(Color.red);
             
             CheckPosition();
+            CharacterController?.Animator.IncrementFrame();
         }
         else
         {
             if (!Input.GetKeyDown(KeyCode.A)) 
                 return;
+            
             CharacterController.transform.position += Vector3.up * climbSpeed;
             _flip = !_flip;
-            CharacterController.SetColor(Color.blue);
 
             CheckPosition();
+            CharacterController?.Animator.IncrementFrame();
         }
     }
 
@@ -79,18 +80,20 @@ public class Ladder : InteractableBase
         pos.x = transform.position.x;
         CharacterController.transform.position = pos;
         
-        CharacterController.SetColor(Color.red);
         CharacterController.SetSpriteOrder(GetSortingOrder() + 1);
         Interacting = true;
         InteractCooldown = true;
+        
+        CharacterController.Animator.StartAnimation("Climb");
     }
     
     protected override void StopInteract()
     {
         Interacting = false;
         CharacterController.SetLocked(false);
-        CharacterController.SetColor(Color.white);
         CharacterController.SetSpriteOrder(0);
         CharacterController = null;
+        
+        
     }
 }

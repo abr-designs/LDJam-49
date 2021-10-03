@@ -80,6 +80,8 @@ public class Station : InteractableBase
 
         Interacting = true;
         InteractCooldown = true;
+        
+        CharacterController.Animator.StartAnimation("Interact");
     }
 
     protected override void StopInteract()

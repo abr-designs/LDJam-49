@@ -8,6 +8,8 @@ public class CharacterController : Actor2DBase
     
     public Rigidbody2D Rigidbody2D;
 
+    public CharacterAnimator Animator { get; private set; }
+
 
     public float moveSpeed;
 
@@ -23,6 +25,8 @@ public class CharacterController : Actor2DBase
     // Start is called before the first frame update
     protected override void Start()
     {
+        Animator = GetComponent<CharacterAnimator>();
+        
         base.Start();
         
         _moves = new bool[2];
@@ -44,19 +48,25 @@ public class CharacterController : Actor2DBase
         if (Input.GetKeyDown(KeyCode.A))
         {
             _moves[0] = true;
+            Animator.StartAnimation("Run");
+            Animator.SetXOrientation(true);
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
             _moves[0] = false;
+            Animator.StartAnimation("Idle");
         }
         
         if (Input.GetKeyDown(KeyCode.D))
         {
             _moves[1] = true;
+            Animator.StartAnimation("Run");
+            Animator.SetXOrientation(false);
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
             _moves[1] = false;
+            Animator.StartAnimation("Idle");
         }
     }
 
@@ -103,6 +113,13 @@ public class CharacterController : Actor2DBase
             Rigidbody2D.velocity = Vector2.zero;
 
             _moves[0] = _moves[1] = false;
+        }
+        else
+        {
+            if(_moves[0] || _moves[1])
+                Animator.StartAnimation("Run");
+            else
+                Animator.StartAnimation("Idle");
         }
 
     }

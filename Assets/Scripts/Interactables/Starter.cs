@@ -38,6 +38,8 @@ public class Starter : InteractableBase
 
         if (!Input.GetKeyDown(KeyCode.Space))
             return;
+        
+        CharacterController.Animator.StartAnimation("Starter");
 
         _pullCount--;
 
@@ -50,6 +52,9 @@ public class Starter : InteractableBase
 
     public override void Interact(CharacterController characterController)
     {
+        if (Active)
+            return;
+        
         CharacterController = characterController;
 
         CharacterController.SetLocked(true);
