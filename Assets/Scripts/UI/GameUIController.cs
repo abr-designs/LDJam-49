@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour
 {
@@ -29,6 +31,12 @@ public class GameUIController : MonoBehaviour
     [SerializeField]
     private GameObject backgroundImage;
 
+    [SerializeField]
+    private GameObject diedWindow;
+    [SerializeField]
+    private Button retryButton;
+
+
     //====================================================================================================================//
     
     // Start is called before the first frame update
@@ -40,6 +48,25 @@ public class GameUIController : MonoBehaviour
             t.WindowData.InitUI();
             t.SetActive(false);
         }
+
+        ShipCore.OnDied += OnDied;
+        
+        retryButton.onClick.AddListener(() =>
+        {
+            Destroy(AudioController.Instance.gameObject);
+            SceneManager.LoadScene(0);
+        });
+        diedWindow.SetActive(false); 
+    }
+
+    private void OnDestroy()
+    {
+        ShipCore.OnDied -= OnDied;
+    }
+
+    private void OnDied()
+    {
+        diedWindow.SetActive(true);
     }
 
     //====================================================================================================================//

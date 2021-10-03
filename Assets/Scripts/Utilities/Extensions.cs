@@ -26,4 +26,15 @@ public static class Extensions
 
         return outArray;
     }
+    
+    public static T PickRandomElement<T>(this IEnumerable<T> elements)
+    {
+        var elementsList = elements.ToList();
+        
+        if (elementsList.Count == 0)
+            return default;
+        
+        var randomIndex = Random.Range(0, elementsList.Count);
+        return elementsList[randomIndex];
+    }
 }

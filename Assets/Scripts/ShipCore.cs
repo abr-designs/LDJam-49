@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ShipCore : MonoBehaviour
 {
+    public static Action OnDied;
     [SerializeField]
     private SpriteRenderer coreSpriteRenderer;
     
@@ -31,7 +32,8 @@ public class ShipCore : MonoBehaviour
         if (_currentHealth > 0f)
             return;
 
-        throw new NotImplementedException("Core Death not implemented");
+        OnDied?.Invoke();
+        
     }
     
 }

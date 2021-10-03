@@ -85,10 +85,12 @@ public class BreakerWindow : MonoBehaviour, IWindowData
         if (value == 0f && CurrentValue == 1 || CurrentValue == 2)
         {
             CurrentValue = 0;
+            AudioController.Instance.PlaySoundEffect(AudioController.EFFECT.BREAKER_OFF);
         }
         else if (value == 1f && CurrentValue == 0)
         {
             CurrentValue = 2;
+            AudioController.Instance.PlaySoundEffect(AudioController.EFFECT.BREAKER_ON);
         }
     }
 

@@ -131,6 +131,7 @@ public class MenuController : MonoBehaviour
 
             if (_playerReady)
             {
+                AudioController.Instance.PlaySoundEffect(AudioController.EFFECT.BREAKER_OFF);
                 //TODO Force close the window after a moment
                 StartCoroutine(DelayedCallCoroutine(0.3f, ForceStopInteractions));
             }

@@ -40,6 +40,8 @@ public class Starter : InteractableBase
             return;
         
         CharacterController.Animator.StartAnimation("Starter");
+        AudioController.Instance.PlaySoundEffect(AudioController.EFFECT.STARTER);
+
 
         _pullCount--;
 

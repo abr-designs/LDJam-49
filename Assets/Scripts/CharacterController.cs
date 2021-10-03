@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class CharacterController : Actor2DBase
     public Rigidbody2D Rigidbody2D;
 
     public CharacterAnimator Animator { get; private set; }
+    private AudioController AudioController { get; set; }
 
 
     public float moveSpeed;
@@ -25,12 +27,15 @@ public class CharacterController : Actor2DBase
     // Start is called before the first frame update
     protected override void Start()
     {
+        AudioController = FindObjectOfType<AudioController>();
         Animator = GetComponent<CharacterAnimator>();
         
         base.Start();
         
         _moves = new bool[2];
         _interactables = new List<IInteractable>();
+
+        CharacterAnimator.OnStep += StepSound;
     }
 
     // Update is called once per frame
@@ -101,7 +106,18 @@ public class CharacterController : Actor2DBase
         _interactables.Remove(other.GetComponent<IInteractable>());
     }
 
+    private void OnDestroy()
+    {
+        CharacterAnimator.OnStep -= StepSound;
+
+    }
+
     //====================================================================================================================//
+
+    private void StepSound()
+    {
+        AudioController.PlaySoundEffect(AudioController.EFFECT.STEP);
+    }
 
     public void SetLocked(in bool state)
     {

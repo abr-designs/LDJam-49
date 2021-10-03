@@ -36,6 +36,7 @@ public class ButtonsWindow : MonoBehaviour, IWindowData
 
 
                 button.image.color = _toggles[index] ? toggledColor : untoggledColor;
+                AudioController.Instance.PlaySoundEffect(AudioController.EFFECT.BUTTON_PRESS);
             });
 
             button.GetComponentInChildren<TMP_Text>().text = $"{i + 1}";

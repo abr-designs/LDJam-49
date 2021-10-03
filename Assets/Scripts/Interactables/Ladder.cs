@@ -66,6 +66,8 @@ public class Ladder : InteractableBase
             
             CheckPosition();
             CharacterController?.Animator.IncrementFrame();
+            AudioController.Instance.PlaySoundEffect(AudioController.EFFECT.CLIMB);
+            
 
             _controlSquareText.text = "A";
         }
@@ -79,6 +81,8 @@ public class Ladder : InteractableBase
 
             CheckPosition();
             CharacterController?.Animator.IncrementFrame();
+            AudioController.Instance.PlaySoundEffect(AudioController.EFFECT.CLIMB);
+
             
             _controlSquareText.text = "D";
         }

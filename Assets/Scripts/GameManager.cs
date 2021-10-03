@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField, Header("Damage")] 
     private float damagePerSecond;
+    [SerializeField]
+    private SoundRepeater alarmRepeater;
     
     [SerializeField, Range(0,4), Header("Floors")] 
     private int startingFloor;
@@ -119,6 +121,9 @@ public class GameManager : MonoBehaviour
     
     private Station.TYPE _activeStation = Station.TYPE.NONE;
     private int _currentSubStationIndex;
+    
+    private bool _dead;
+
 
     //====================================================================================================================//
     private void Awake()
@@ -146,12 +151,28 @@ public class GameManager : MonoBehaviour
 
         UnlockFloor(startingFloor);
         _eventTimer = Random.Range(2f,6f);
+
+        ShipCore.OnDied += OnDied;
     }
 
     private void Update()
     {
+        if (_dead)
+            return;
+        
         EventUpdate();
         CheckForWarnings();
+    }
+
+    private void OnDestroy()
+    {
+        ShipCore.OnDied -= OnDied;
+    }
+
+    private void OnDied()
+    {
+        _dead = true;
+        alarmRepeater.enabled = false;
     }
 
     //====================================================================================================================//
@@ -166,6 +187,8 @@ public class GameManager : MonoBehaviour
                 warningCount++;
         }
 
+        alarmRepeater.enabled = warningCount > 0;
+        
         if (warningCount <= 0)
             return;
         
@@ -225,9 +248,16 @@ public class GameManager : MonoBehaviour
                 
                 warningDatas[i].TryGarbleFloor();
             }
+
+            //At least one floor should disrupt each explosion
+            if (warningDatas.All(x => x.HasSystemWarning == false))
+            {
+                warningDatas.PickRandomElement().TryGarbleFloor();
+            }
         }
 
         _cinemachineImpulseSource.GenerateImpulse(5);
+        AudioController.Instance.PlaySoundEffect(AudioController.EFFECT.EXPLOSION);
     }
 
     //Station Data Functions

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
+    public static Action OnStep;
+
     [Serializable]
     private struct Animation
     {
@@ -90,6 +92,11 @@ public class CharacterAnimator : MonoBehaviour
     {
         if (HasAnimation == false)
             return;
+
+        if (_currentAnimationIndex == 3 && (_frameIndex == 0 || _frameIndex == 2))
+        {
+            OnStep?.Invoke();
+        }
         
         if (_frameIndex + 1 >= _currentAnimation.sprites.Length && _currentAnimation.loop)
         {
