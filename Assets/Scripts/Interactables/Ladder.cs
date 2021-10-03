@@ -15,7 +15,7 @@ public class Ladder : InteractableBase
     {
         base.Start();
 
-        _maxHeight = GetSpriteBounds().max.y;
+        ForceUpdateMaxHeight();
     }
 
     private void Update()
@@ -60,6 +60,14 @@ public class Ladder : InteractableBase
 
             CheckPosition();
         }
+    }
+
+
+    //====================================================================================================================//
+
+    public void ForceUpdateMaxHeight()
+    {
+        _maxHeight = GetSpriteBounds().max.y;
     }
 
     public override void Interact(CharacterController characterController)

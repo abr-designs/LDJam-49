@@ -4,11 +4,9 @@
     <list default="true" id="a88a900e-420c-4222-b6f7-2fecb0ed6817" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LDJam-49/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LDJam-49/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor1Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor1Display.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor2Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor2Display.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor3Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor3Display.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/Starter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/Starter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/Ladder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/Ladder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +30,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/Extensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Displays/Floor1Display.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Menu/MenuStation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/Windows/DialsWindow.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Displays/Floor2Display.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Displays/Floor4Display.cs" root0="FORCE_HIGHLIGHTING" />
@@ -39,6 +38,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interfaces/IShowWarning.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interactables/Station.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interfaces/ICanBeGarbled.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/OpenTrigger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/Windows/SeeSawSliderWindow.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/CameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Displays/Floor3Display.cs" root0="FORCE_HIGHLIGHTING" />
@@ -80,10 +80,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="5516">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="5808">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="5516" />
+      <option name="pid" value="5808" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -100,7 +100,8 @@
       <option name="presentableId" value="Default" />
       <updated>1633140898427</updated>
       <workItem from="1633140901204" duration="9756000" />
-      <workItem from="1633183320854" duration="33152000" />
+      <workItem from="1633183320854" duration="33858000" />
+      <workItem from="1633271720902" duration="3559000" />
     </task>
     <servers />
   </component>
@@ -153,6 +154,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Menu/MenuController.cs</url>
+          <line>65</line>
+          <properties documentPath="D:\Repos\LDJam-49\Assets\Scripts\Menu\MenuController.cs" initialLine="65" containingFunctionPresentation="method 'Start'">
+            <startOffsets>
+              <option value="1804" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1854" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
