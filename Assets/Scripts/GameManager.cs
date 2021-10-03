@@ -1,33 +1,50 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Cinemachine;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [DefaultExecutionOrder(-1000)]
 public class GameManager : MonoBehaviour
 {
+    //Structs
+    //====================================================================================================================//
+    
     [Serializable]
     private struct WarningData
     {
+        public bool HasSystemWarning { get; private set; }
+
         [SerializeField]
         private GameObject floorDisplayObject;
         private IShowWarning _showWarning;
+        private ICanBeGarbled _canBeGarbled;
         [SerializeField]
         private GameObject warningLightObject;
 
         public void CheckWarning()
         {
-            if (_showWarning is null)
-                _showWarning = floorDisplayObject.GetComponent<IShowWarning>();
+            _showWarning ??= floorDisplayObject.GetComponent<IShowWarning>();
+            HasSystemWarning = _showWarning.ShouldDisplayWarning();
+            warningLightObject.SetActive(HasSystemWarning);
+        }
+        public void TryGarbleFloor()
+        {
+            if (_canBeGarbled is null)
+                _canBeGarbled = floorDisplayObject.GetComponent<ICanBeGarbled>();
             
-            warningLightObject.SetActive(_showWarning.ShouldDisplayWarning());
+            _canBeGarbled.Garble();
         }
     }
     //Properties
     //====================================================================================================================//
+
+    [SerializeField, Header("Damage")] 
+    private float damagePerSecond;
     
-    [SerializeField, Range(0,4)] 
+    [SerializeField, Range(0,4), Header("Floors")] 
     private int startingFloor;
     [SerializeField]
     private float[] floorHeights;
@@ -35,6 +52,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] 
     private WarningData[] warningDatas;
 
+    [SerializeField]
+    private GameObject[] floorLockShades;
+
+
+    //--------------------------------------------------------------------------------------------------------//
+    
     [SerializeField, Header("Events")]
     private AnimationCurve eventTimeCurve;
     [SerializeField]
@@ -46,14 +69,19 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float[] floorUnlockPercentage;
 
-    private float _timeT;
+    private float _progressionT;
     private float _eventTimer;
 
     private int _currentFloor;
+
+    //--------------------------------------------------------------------------------------------------------//
+
+    private CinemachineImpulseSource _cinemachineImpulseSource;
     
     private FirePole _firePole;
     private Ladder _ladder;
     private Starter _starter;
+    private ShipCore _shipCore;
 
     public float[] coolantTowerValues { get; private set; }
     public int[] breakerBoxValues { get; private set; }
@@ -73,23 +101,28 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        _shipCore = GetComponent<ShipCore>();
+        _cinemachineImpulseSource = GetComponent<CinemachineImpulseSource>();
+        
         _firePole = FindObjectOfType<FirePole>();
         _ladder = FindObjectOfType<Ladder>();
         _starter = FindObjectOfType<Starter>();
 
-        coolantTowerValues = new float[4];
-        breakerBoxValues = new int[4];
+        coolantTowerValues = new float[3];
+        breakerBoxValues = Enumerable.Repeat(2, 4).ToArray();
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < warningDatas.Length; i++)
         {
-            breakerBoxValues[i] = Random.Range(0, 3);
+            warningDatas[i].CheckWarning();
         }
 
         UnlockFloor(startingFloor);
+        _eventTimer = Random.Range(2f,6f);
     }
 
     private void Update()
     {
+        EventUpdate();
         CheckForWarnings();
     }
 
@@ -97,10 +130,18 @@ public class GameManager : MonoBehaviour
 
     private void CheckForWarnings()
     {
+        var warningCount = 0;
         for (int i = 0; i <= _currentFloor; i++)
         {
             warningDatas[i].CheckWarning();
+            if (warningDatas[i].HasSystemWarning)
+                warningCount++;
         }
+
+        if (warningCount <= 0)
+            return;
+        
+        _shipCore.DamageCore(damagePerSecond * warningCount * Time.deltaTime);
     }
 
     public void UnlockFloor(int floorIndex)
@@ -117,6 +158,49 @@ public class GameManager : MonoBehaviour
         _firePole.SetEndHeight(floorHeights[floorIndex]);
     }
 
+    //Event Update Functions
+    //====================================================================================================================//
+
+    private void EventUpdate()
+    {
+        if (_eventTimer > 0f)
+        {
+            _eventTimer -= Time.deltaTime;
+            return;
+        }
+
+        _progressionT += timeFrequencyIncrementation;
+
+        if (_currentFloor + 1 < floorUnlockPercentage.Length &&
+            _progressionT >= floorUnlockPercentage[_currentFloor + 1])
+        {
+            UnlockFloor(_currentFloor + 1);
+            //Force Garble New Floors
+            warningDatas[_currentFloor].TryGarbleFloor();
+        }
+        
+        _eventTimer = Mathf.Lerp(eventTimeRange.x, eventTimeRange.y, eventTimeCurve.Evaluate(_progressionT));
+
+        if (_currentFloor == 0)
+        {
+            warningDatas[0].TryGarbleFloor();
+        }
+        else
+        {
+            for (int i = 0; i < _currentFloor; i++)
+            {
+                var hasGarble = Random.value <= eventGarbleChanceCurve.Evaluate(_progressionT);
+                
+                if(!hasGarble)
+                    continue;
+                
+                warningDatas[i].TryGarbleFloor();
+            }
+        }
+
+        _cinemachineImpulseSource.GenerateImpulse(5);
+    }
+
     //Station Data Functions
     //====================================================================================================================//
 
@@ -130,15 +214,19 @@ public class GameManager : MonoBehaviour
 
     public void StoreStationValue(in float value)
     {
-        switch (_activeStation)
+        StoreStationValue(_activeStation, _currentSubStationIndex, value);
+    }
+    public void StoreStationValue(in Station.TYPE stationType, in int subStationIndex, in float value)
+    {
+        switch (stationType)
         {
             case Station.TYPE.NONE:
                 return;
             case Station.TYPE.SEE_SAW:
-                coolantTowerValues[_currentSubStationIndex] = value;
+                coolantTowerValues[subStationIndex] = value;
                 break;
             case Station.TYPE.BREAKER:
-                breakerBoxValues[_currentSubStationIndex] = Mathf.RoundToInt(value);
+                breakerBoxValues[subStationIndex] = Mathf.RoundToInt(value);
                 break;
         }
     }
@@ -167,6 +255,12 @@ public class GameManager : MonoBehaviour
     #region Unity Editor Functions
 
 #if UNITY_EDITOR
+
+    [ContextMenu("Test Shake Impulse")]
+    private void TestImpulse()
+    {
+        _cinemachineImpulseSource.GenerateImpulse(10);
+    }
 
     private void OnDrawGizmos()
     {

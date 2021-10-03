@@ -1,24 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Floor4Display : MonoBehaviour, IShowWarning
+public class Floor4Display : MonoBehaviour, IShowWarning, ICanBeGarbled
 {
     private static GameManager GameManager => GameManager.Instance;
 
     [SerializeField]
-    private SpriteRenderer[] targets;
+    private BreakerWindow breakerWindow;
 
-    [SerializeField]
-    private SpriteRenderer starterSpriteRenderer;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private SpriteRenderer[] targets;
+
+    [SerializeField] private SpriteRenderer starterSpriteRenderer;
 
     // Update is called once per frame
     private void LateUpdate()
@@ -52,12 +45,22 @@ public class Floor4Display : MonoBehaviour, IShowWarning
 
             }
             else
-                starterSpriteRenderer.color = sum == 8  ? Color.yellow : Color.gray;
+                starterSpriteRenderer.color = sum == 8 ? Color.yellow : Color.gray;
 
         }
-        
-        
+
+
     }
 
     public bool ShouldDisplayWarning() => !Starter.Active;
+
+    public void Garble()
+    {
+        var count = GameManager.breakerBoxValues.Length;
+
+        for (int i = 0; i < count; i++)
+        {
+            GameManager.StoreStationValue(Station.TYPE.BREAKER, i, breakerWindow.GetRandomValue());
+        }
+    }
 }

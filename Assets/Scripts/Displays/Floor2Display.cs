@@ -4,7 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class Floor2Display : MonoBehaviour, IShowWarning
+public class Floor2Display : MonoBehaviour, IShowWarning, ICanBeGarbled
 {
     [SerializeField]
     private DialsWindow dialsWindow;
@@ -21,7 +21,7 @@ public class Floor2Display : MonoBehaviour, IShowWarning
     //====================================================================================================================//
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         var numbers = Enumerable.Range(1, 9).PickRandomElements(3);
         SetExpectedValues(numbers);
@@ -71,4 +71,12 @@ public class Floor2Display : MonoBehaviour, IShowWarning
     //====================================================================================================================//
 
     public bool ShouldDisplayWarning() => _showWarning;
+    public void Garble()
+    {
+        dialsWindow.RandomizeValues();
+        buttonsWindow.RandomizeValues();
+
+        var numbers = Enumerable.Range(1, 9).PickRandomElements(3);
+        SetExpectedValues(numbers);
+    }
 }

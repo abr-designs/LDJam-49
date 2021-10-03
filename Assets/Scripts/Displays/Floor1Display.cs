@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Floor1Display : MonoBehaviour, IShowWarning
+public class Floor1Display : MonoBehaviour, IShowWarning, ICanBeGarbled
 {
     [SerializeField]
     private SingleSliderWindow horizontalSlider;
@@ -57,4 +57,9 @@ public class Floor1Display : MonoBehaviour, IShowWarning
     }
 
     public bool ShouldDisplayWarning() => _showWarning;
+    public void Garble()
+    {
+        horizontalSlider.RandomizeValues();
+        verticalSlider.RandomizeValues();
+    }
 }

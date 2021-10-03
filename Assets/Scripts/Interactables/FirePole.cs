@@ -19,10 +19,6 @@ public class FirePole : InteractableBase
     protected override void Start()
     {
         base.Start();
-        
-        var spriteBounds = GetSpriteBounds();
-
-        SetEndHeight(spriteBounds.min.y);
     }
 
     // Update is called once per frame

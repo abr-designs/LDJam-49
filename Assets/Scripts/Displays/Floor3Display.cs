@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Floor3Display : MonoBehaviour, IShowWarning
+public class Floor3Display : MonoBehaviour, IShowWarning, ICanBeGarbled
 {
     private static GameManager GameManager => GameManager.Instance;
 
+    [SerializeField]
+    private SeeSawSliderWindow SeeSawSliderWindow;
+    
     [SerializeField]
     private SpriteRenderer[] targets;
     private Transform[] _targetTransforms;
@@ -46,4 +49,13 @@ public class Floor3Display : MonoBehaviour, IShowWarning
     }
 
     public bool ShouldDisplayWarning() => _showWarning;
+    public void Garble()
+    {
+        var count = GameManager.coolantTowerValues.Length;
+
+        for (int i = 0; i < count; i++)
+        {
+            GameManager.StoreStationValue(Station.TYPE.SEE_SAW, i, SeeSawSliderWindow.GetRandomValue());
+        }
+    }
 }

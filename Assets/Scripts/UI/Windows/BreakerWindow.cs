@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class BreakerWindow : MonoBehaviour, IWindowData
 {
@@ -68,18 +70,12 @@ public class BreakerWindow : MonoBehaviour, IWindowData
 
     public void RandomizeValues()
     {
-        CurrentValue = Random.Range(randomValueRange.x, randomValueRange.y);
+        throw new NotImplementedException();
+    }
 
-        switch (CurrentValue)
-        {
-            case 0:
-                verticalSlider.value = 0f;
-                break;
-            case 1:
-            case 2:
-                verticalSlider.value = 1f;
-                break;
-        }
+    public float GetRandomValue()
+    {
+        return Random.Range(randomValueRange.x, randomValueRange.y);
     }
 
     //====================================================================================================================//

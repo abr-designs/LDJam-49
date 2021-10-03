@@ -3,20 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="a88a900e-420c-4222-b6f7-2fecb0ed6817" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LDJam-49/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LDJam-49/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor1Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor1Display.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor2Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor2Display.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor3Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor3Display.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor4Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor4Display.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/FirePole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/FirePole.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/Ladder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/Ladder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/GameUIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/GameUIController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Interfaces/IWindowData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Interfaces/IWindowData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/BoxSliderWindow.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/BoxSliderWindow.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/ButtonsWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/ButtonsWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/DialsWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/DialsWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/BreakerWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/BreakerWindow.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/SeeSawSliderWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/SeeSawSliderWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/SingleSliderWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/SingleSliderWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/SlidersWindow.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/SlidersWindow.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +43,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/Windows/SingleSliderWindow.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interfaces/IShowWarning.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interactables/Station.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interfaces/ICanBeGarbled.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/Windows/SeeSawSliderWindow.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/CameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Displays/Floor3Display.cs" root0="FORCE_HIGHLIGHTING" />
@@ -107,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1633140898427</updated>
       <workItem from="1633140901204" duration="9756000" />
-      <workItem from="1633183320854" duration="22163000" />
+      <workItem from="1633183320854" duration="29225000" />
     </task>
     <servers />
   </component>
@@ -147,6 +145,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Interactables/FirePole.cs</url>
+          <line>85</line>
+          <properties documentPath="D:\Repos\LDJam-49\Assets\Scripts\Interactables\FirePole.cs" initialLine="89" containingFunctionPresentation="method 'SetEndHeight'">
+            <startOffsets>
+              <option value="2493" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2516" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

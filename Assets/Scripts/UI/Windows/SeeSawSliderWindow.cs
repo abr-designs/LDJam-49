@@ -53,13 +53,20 @@ public class SeeSawSliderWindow : MonoBehaviour, IWindowData
         _leftValue = leftSlider.value = 1f;
         _rightValue = rightSlider.value = 0f;
 
+        leftSlider.interactable = true;
+        rightSlider.interactable = false;
+
         mainSlider.value = 0f;
     }
 
     public void RandomizeValues()
     {
-        mainSlider.value = Random.Range(randomRangeValue.x, randomRangeValue.y);
-        GameManager.StoreStationValue(mainSlider.value);
+        throw new NotImplementedException();
+    }
+    
+    public float GetRandomValue()
+    {
+        return Random.Range(randomRangeValue.x, randomRangeValue.y);
     }
 
     //====================================================================================================================//
@@ -74,6 +81,12 @@ public class SeeSawSliderWindow : MonoBehaviour, IWindowData
         _rightValue = rightSlider.value = 1f - value;
         
         GameManager.StoreStationValue(mainSlider.value);
+
+        if (_rightValue >= 1f)
+        {
+            leftSlider.interactable = false;
+            rightSlider.interactable = true;
+        }
         
     }
     private void OnRightChange(float value)
@@ -85,5 +98,12 @@ public class SeeSawSliderWindow : MonoBehaviour, IWindowData
         _rightValue = value;
         _leftValue = leftSlider.value = 1f - value;
         GameManager.StoreStationValue(mainSlider.value);
+        
+        if (_leftValue >= 1f)
+        {
+            leftSlider.interactable = true;
+            rightSlider.interactable = false;
+        }
+        
     }
 }
