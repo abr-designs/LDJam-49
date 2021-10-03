@@ -103,10 +103,12 @@ public class MenuController : MonoBehaviour
         musicVolumeSlider.onValueChanged.AddListener(value =>
         {
             //TODO Set the game Volume
+            AudioController.Instance.SetMusicVolume(value);
         }); 
         sfxVolumeSlider.onValueChanged.AddListener(value =>
         {
             //TODO Set the game Volume
+            AudioController.Instance.SetEffectsVolume(value);
         }); 
         
         closeButton.onClick.AddListener(ForceStopInteractions);

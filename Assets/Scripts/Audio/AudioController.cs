@@ -92,10 +92,22 @@ public class AudioController : MonoBehaviour
     {
         SetVolume("SFXVolume", volume);
     }
+    
+    public void GetMusicVolume(float volume)
+    {
+        SetVolume("MusicVolume", volume);
+    }
+    public void GetEffectsVolume(float volume)
+    {
+        SetVolume("SFXVolume", volume);
+    }
 
     private void SetVolume(string parameterName, float volume)
     {
-        volume = Mathf.Clamp01(volume);
-        masterMixer.SetFloat(parameterName, Mathf.Log10(volume) * 40);
+        volume = Mathf.Clamp(volume, 0.001f, 1f);
+            
+        masterMixer.SetFloat(parameterName, Mathf.Log(volume) * 13);
+
     }
+
 }
