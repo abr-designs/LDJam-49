@@ -3,18 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a88a900e-420c-4222-b6f7-2fecb0ed6817" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LDJam-49/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LDJam-49/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor1Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor1Display.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor2Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor2Display.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor3Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor3Display.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor4Display.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Displays/Floor4Display.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/FirePole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/FirePole.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/BreakerWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/BreakerWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/SeeSawSliderWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Windows/SeeSawSliderWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/Starter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/Starter.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +28,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/Windows/ButtonsWindow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/Spin.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/Extensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Displays/Floor1Display.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -105,7 +100,7 @@
       <option name="presentableId" value="Default" />
       <updated>1633140898427</updated>
       <workItem from="1633140901204" duration="9756000" />
-      <workItem from="1633183320854" duration="29225000" />
+      <workItem from="1633183320854" duration="33152000" />
     </task>
     <servers />
   </component>

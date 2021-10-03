@@ -5,8 +5,8 @@ using UnityEngine;
 public class Starter : InteractableBase
 {
     public Vector2Int pullCountRange;
-    
-    public static bool Active { get; set; }
+
+    public static bool Active { get; set; } = true;
     
     protected override CharacterController CharacterController { get; set; }
     protected override bool Interacting { get; set; }

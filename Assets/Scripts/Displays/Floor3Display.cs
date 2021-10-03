@@ -1,13 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Floor3Display : MonoBehaviour, IShowWarning, ICanBeGarbled
 {
+    private static readonly int Speed = Animator.StringToHash("Speed");
+
     private static GameManager GameManager => GameManager.Instance;
 
     [SerializeField]
     private SeeSawSliderWindow SeeSawSliderWindow;
+
+    [SerializeField] 
+    private Animator[] bubbleAnimators;
     
     [SerializeField]
     private SpriteRenderer[] targets;
@@ -21,7 +27,7 @@ public class Floor3Display : MonoBehaviour, IShowWarning, ICanBeGarbled
     private Color fullColor = Color.white;
 
     private bool _showWarning;
-    
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -41,6 +47,8 @@ public class Floor3Display : MonoBehaviour, IShowWarning, ICanBeGarbled
         for (int i = 0; i < targets.Length; i++)
         {
             targets[i].color = Color.Lerp(emptyColor, fullColor, storedValues[i]);
+            
+            bubbleAnimators[i].SetFloat(Speed, Mathf.Lerp(1.5f, 0.5f, storedValues[i]));
 
             if (storedValues[i] < 0.75f)
                 _showWarning = true;

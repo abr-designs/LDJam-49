@@ -25,6 +25,11 @@ public class Floor1Display : MonoBehaviour, IShowWarning, ICanBeGarbled
     [SerializeField]
     private Color badColor = Color.white;
 
+    
+    [SerializeField]
+    private Color reticleGood = Color.white; 
+    [SerializeField]
+    private Color reticleBad = Color.white;
     private bool _showWarning;
 
     // Start is called before the first frame update
@@ -53,7 +58,7 @@ public class Floor1Display : MonoBehaviour, IShowWarning, ICanBeGarbled
         _showWarning = magnitude > 0.1f;
 
         displaySpaceSprite.color = Color.Lerp(goodColor, badColor, magnitude * 2f);
-        _reticleRenderer.color = Color.Lerp(Color.green, Color.red, magnitude * 4f);
+        _reticleRenderer.color = Color.Lerp(reticleGood, reticleBad, magnitude * 4f);
     }
 
     public bool ShouldDisplayWarning() => _showWarning;

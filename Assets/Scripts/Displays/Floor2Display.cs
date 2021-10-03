@@ -15,6 +15,16 @@ public class Floor2Display : MonoBehaviour, IShowWarning, ICanBeGarbled
     private TMP_Text displayText;
 
     private int[] _expectedValues = new int[3];
+    
+    [SerializeField]
+    private Color wrongColor = Color.white;
+    [SerializeField]
+    private Color warningColor = Color.white;
+    [SerializeField]
+    private Color correctColor = Color.white;
+
+    private string[] _colors;
+
 
     private bool _showWarning;
 
@@ -25,6 +35,13 @@ public class Floor2Display : MonoBehaviour, IShowWarning, ICanBeGarbled
     {
         var numbers = Enumerable.Range(1, 9).PickRandomElements(3);
         SetExpectedValues(numbers);
+
+        _colors = new[]
+        {
+            ColorUtility.ToHtmlStringRGBA(correctColor),
+            ColorUtility.ToHtmlStringRGBA(warningColor),
+            ColorUtility.ToHtmlStringRGBA(wrongColor),
+        };
     }
 
     // Update is called once per frame
@@ -39,16 +56,16 @@ public class Floor2Display : MonoBehaviour, IShowWarning, ICanBeGarbled
         {
             if (dialValues.Contains(_expectedValues[i]) && buttonsWindow.ToggleActive(_expectedValues[i] - 1))
             {
-                displayList[i] = $"<color=\"white\">{_expectedValues[i]}</color>";
+                displayList[i] = $"<color=#{_colors[0]}>{_expectedValues[i]}</color>";
             }
             else if (dialValues.Contains(_expectedValues[i]) || buttonsWindow.ToggleActive(_expectedValues[i] - 1))
             {
-                displayList[i] = $"<color=\"yellow\">{_expectedValues[i]}</color>";
+                displayList[i] = $"<color=#{_colors[1]}>{_expectedValues[i]}</color>";
                 _showWarning = true;
             }
             else
             {
-                displayList[i] = $"<color=\"red\">{_expectedValues[i]}</color>";
+                displayList[i] = $"<color=#{_colors[2]}>{_expectedValues[i]}</color>";
                 _showWarning = true;
             }
         }

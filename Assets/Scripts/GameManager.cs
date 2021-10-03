@@ -38,6 +38,34 @@ public class GameManager : MonoBehaviour
             _canBeGarbled.Garble();
         }
     }
+
+    [Serializable]
+    private struct FloorLockData
+    {
+        [SerializeField]
+        private GameObject floorShadeObject;
+        [SerializeField]
+        private SpriteRenderer leftHatchRenderer;
+        [SerializeField]
+        private SpriteRenderer rightHatchRenderer;
+        [SerializeField]
+        private Sprite targetSprite;
+
+        public void OpenFloor()
+        {
+            /*const string TARGET_LAYER = "Background";
+            const int TARGET_SORTING_ORDER = 50;*/
+
+            floorShadeObject.SetActive(false);
+            leftHatchRenderer.gameObject.SetActive(false);
+            rightHatchRenderer.gameObject.SetActive(false);
+            /*rightHatchRenderer.sortingLayerName = leftHatchRenderer.sortingLayerName = TARGET_LAYER;
+            rightHatchRenderer.sortingOrder = leftHatchRenderer.sortingOrder = TARGET_SORTING_ORDER;
+            rightHatchRenderer.sprite = leftHatchRenderer.sprite = targetSprite;
+            rightHatchRenderer.color = leftHatchRenderer.color = Color.gray;*/
+        }
+    }
+    
     //Properties
     //====================================================================================================================//
 
@@ -53,7 +81,7 @@ public class GameManager : MonoBehaviour
     private WarningData[] warningDatas;
 
     [SerializeField]
-    private GameObject[] floorLockShades;
+    private FloorLockData[] floorLockDatas;
 
 
     //--------------------------------------------------------------------------------------------------------//
@@ -156,6 +184,7 @@ public class GameManager : MonoBehaviour
         
         //TODO Open Hatch Doors
         _firePole.SetEndHeight(floorHeights[floorIndex]);
+        floorLockDatas[floorIndex - 1].OpenFloor();
     }
 
     //Event Update Functions
