@@ -1,9 +1,16 @@
+using TMPro;
 using UnityEngine;
 
 public class Ladder : InteractableBase
 {
     public float climbSpeed;
     private bool _flip;
+
+    [SerializeField]
+    public GameObject controlSquarePrefab;
+
+    private Transform _controlSquareTransform;
+    private TextMeshPro _controlSquareText;
     
     protected override CharacterController CharacterController { get; set; }
     protected override bool Interacting { get; set; }
@@ -16,6 +23,12 @@ public class Ladder : InteractableBase
         base.Start();
 
         ForceUpdateMaxHeight();
+
+        var tempControlSquare = Instantiate(controlSquarePrefab);
+        tempControlSquare.name = "Ladder Control Square";
+        _controlSquareTransform = tempControlSquare.transform;
+        _controlSquareText = tempControlSquare.GetComponentInChildren<TextMeshPro>();
+        tempControlSquare.SetActive(false);
     }
 
     private void Update()
@@ -29,6 +42,10 @@ public class Ladder : InteractableBase
         }
         if (Interacting == false)
             return;
+
+        _controlSquareTransform.position =
+            CharacterController.transform.position + (_flip ? Vector3.right : Vector3.left) * 1.5f;
+
 
         if (InteractCooldown)
         {
@@ -49,6 +66,8 @@ public class Ladder : InteractableBase
             
             CheckPosition();
             CharacterController?.Animator.IncrementFrame();
+
+            _controlSquareText.text = "A";
         }
         else
         {
@@ -60,6 +79,8 @@ public class Ladder : InteractableBase
 
             CheckPosition();
             CharacterController?.Animator.IncrementFrame();
+            
+            _controlSquareText.text = "D";
         }
     }
 
@@ -79,6 +100,9 @@ public class Ladder : InteractableBase
         var pos = CharacterController.transform.position;
         pos.x = transform.position.x;
         CharacterController.transform.position = pos;
+
+        _controlSquareTransform.gameObject.SetActive(true);
+        _controlSquareText.text = "A";
         
         CharacterController.SetSpriteOrder(GetSortingOrder() + 1);
         Interacting = true;
@@ -89,6 +113,8 @@ public class Ladder : InteractableBase
     
     protected override void StopInteract()
     {
+        _controlSquareTransform.gameObject.SetActive(false);
+        
         Interacting = false;
         CharacterController.SetLocked(false);
         CharacterController.SetSpriteOrder(0);
