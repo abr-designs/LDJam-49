@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class SeeSawSliderWindow : MonoBehaviour, IWindowData
 {
+    public float CurrentValue => mainSlider.value;
+    
     [SerializeField]
     private float expectedValue;
     
@@ -28,6 +30,8 @@ public class SeeSawSliderWindow : MonoBehaviour, IWindowData
 
     private float _leftValue;
     private float _rightValue;
+    
+    private static GameManager GameManager => GameManager.Instance;
 
     public void InitUI()
     {
@@ -37,22 +41,25 @@ public class SeeSawSliderWindow : MonoBehaviour, IWindowData
         rightSlider.onValueChanged.AddListener(OnRightChange);
     }
 
+    public void RefreshValues()
+    {
+        ResetValues();
+        
+        mainSlider.value = GameManager.GetStoredStationValue();
+    }
+
     public void ResetValues()
     {
         _leftValue = leftSlider.value = 1f;
         _rightValue = rightSlider.value = 0f;
 
-        mainSlider.value = defaultValue;
+        mainSlider.value = 0f;
     }
 
     public void RandomizeValues()
     {
         mainSlider.value = Random.Range(randomRangeValue.x, randomRangeValue.y);
-    }
-
-    public bool CheckValues()
-    {
-        return Math.Abs(mainSlider.value - expectedValue) < 0.1f;
+        GameManager.StoreStationValue(mainSlider.value);
     }
 
     //====================================================================================================================//
@@ -66,6 +73,8 @@ public class SeeSawSliderWindow : MonoBehaviour, IWindowData
         _leftValue = value;
         _rightValue = rightSlider.value = 1f - value;
         
+        GameManager.StoreStationValue(mainSlider.value);
+        
     }
     private void OnRightChange(float value)
     {
@@ -75,5 +84,6 @@ public class SeeSawSliderWindow : MonoBehaviour, IWindowData
         mainSlider.value += (_rightValue - value) * fillSpeedMult;
         _rightValue = value;
         _leftValue = leftSlider.value = 1f - value;
+        GameManager.StoreStationValue(mainSlider.value);
     }
 }

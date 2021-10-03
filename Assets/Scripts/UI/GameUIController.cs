@@ -9,8 +9,7 @@ public class GameUIController : MonoBehaviour
     [Serializable]
     public class Window
     {
-        [SerializeField]
-        private string Name;
+        public string Name;
         public GameObject window;
         public TMP_Text title;
 
@@ -45,21 +44,36 @@ public class GameUIController : MonoBehaviour
 
     //====================================================================================================================//
     
-    public void ShowWindow(in int index)
+    public void ShowWindow(in Station.TYPE stationType)
     {
+        var index = (int)stationType;
+        
         backgroundImage.SetActive(index >= 0);
         
         for (int i = 0; i < windows.Length; i++)
         {
             windows[i].SetActive(i == index);
+            
+            if(i == index)
+                windows[i].WindowData.RefreshValues();
         }
     }
 
     //====================================================================================================================//
 
-    [ContextMenu("Open Window 7")]
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        foreach (var window in windows)
+        {
+            window.window.name = $"STATION_{window.Name}";
+        }
+    }
+
+    [ContextMenu("Open Window")]
     private void TestWindow()
     {
-        ShowWindow(6);
+        ShowWindow(0);
     }
+#endif
 }

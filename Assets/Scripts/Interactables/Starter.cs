@@ -1,32 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Ladder : InteractableBase
+public class Starter : InteractableBase
 {
-    public float climbSpeed;
-    private bool _flip;
+    public Vector2Int pullCountRange;
+    
+    public static bool Active { get; set; }
     
     protected override CharacterController CharacterController { get; set; }
     protected override bool Interacting { get; set; }
     protected override bool InteractCooldown { get; set; }
+
+    private int _pullCount;
     
-    private float _maxHeight;
     
     protected override void Start()
     {
         base.Start();
-
-        _maxHeight = GetSpriteBounds().max.y;
     }
 
     private void Update()
     {
-        void CheckPosition()
-        {
-            if (CharacterController.transform.position.y < _maxHeight)
-                return;
-            
-            StopInteract();
-        }
+
         if (Interacting == false)
             return;
 
@@ -34,31 +30,21 @@ public class Ladder : InteractableBase
         {
             InteractCooldown = false;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             StopInteract();
             return;
         }
-        
-        if (_flip)
-        {
-            if (!Input.GetKeyDown(KeyCode.D)) 
-                return;
-            CharacterController.transform.position += Vector3.up * climbSpeed;
-            _flip = !_flip;
-            CharacterController.SetColor(Color.red);
-            
-            CheckPosition();
-        }
-        else
-        {
-            if (!Input.GetKeyDown(KeyCode.A)) 
-                return;
-            CharacterController.transform.position += Vector3.up * climbSpeed;
-            _flip = !_flip;
-            CharacterController.SetColor(Color.blue);
 
-            CheckPosition();
+        if (!Input.GetKeyDown(KeyCode.Space))
+            return;
+
+        _pullCount--;
+
+        if (_pullCount <= 0)
+        {
+            Active = true;
+            StopInteract();
         }
     }
 
@@ -71,10 +57,12 @@ public class Ladder : InteractableBase
         pos.x = transform.position.x;
         CharacterController.transform.position = pos;
         
-        CharacterController.SetColor(Color.red);
+        CharacterController.SetColor(Color.yellow + Color.red);
         CharacterController.SetSpriteOrder(GetSortingOrder() + 1);
         Interacting = true;
         InteractCooldown = true;
+
+        _pullCount = Random.Range(pullCountRange.x, pullCountRange.y + 1);
     }
     
     protected override void StopInteract()

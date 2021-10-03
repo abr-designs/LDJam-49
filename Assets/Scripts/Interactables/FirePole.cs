@@ -9,21 +9,20 @@ public class FirePole : InteractableBase
     protected override bool Interacting { get; set; }
     protected override bool InteractCooldown { get; set; }
     
-    private Vector2 _topPosition;
-    private Vector2 _endPosition;
+    private float _endHeight;
 
     private float _speed;
 
+    //====================================================================================================================//
+    
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         
         var spriteBounds = GetSpriteBounds();
-        _topPosition = spriteBounds.max;
-        _topPosition.x = spriteBounds.center.x;
-        _endPosition = spriteBounds.min;
-        _endPosition.x = spriteBounds.center.x;
+
+        SetEndHeight(spriteBounds.min.y);
     }
 
     // Update is called once per frame
@@ -36,7 +35,7 @@ public class FirePole : InteractableBase
         {
             InteractCooldown = false;
         }
-        else if(Input.GetKeyDown(KeyCode.Space))
+        else if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
         {
             StopInteract();
             return;
@@ -44,7 +43,7 @@ public class FirePole : InteractableBase
 
         var characterPos = CharacterController.transform.position;
 
-        if (characterPos.y <= _endPosition.y + 1)
+        if (characterPos.y <= _endHeight + 1)
         {
             StopInteract();
             return;
@@ -56,6 +55,9 @@ public class FirePole : InteractableBase
 
         CharacterController.transform.position = characterPos;
     }
+
+    //====================================================================================================================//
+    
 
     public override void Interact(CharacterController characterController)
     {
@@ -80,5 +82,11 @@ public class FirePole : InteractableBase
         CharacterController.SetColor(Color.white);
         CharacterController.SetSpriteOrder(0);
         CharacterController = null;
+    }
+
+    //====================================================================================================================//
+    public void SetEndHeight(float endHeight)
+    {
+        _endHeight = endHeight;
     }
 }

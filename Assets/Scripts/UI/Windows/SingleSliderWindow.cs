@@ -14,7 +14,7 @@ public class SingleSliderWindow : MonoBehaviour, IWindowData
     [SerializeField]
     private Slider horizontalSlider;
 
-    private float _currentValue;
+    public float CurrentValue { get; private set; }
 
     //====================================================================================================================//
     
@@ -26,25 +26,31 @@ public class SingleSliderWindow : MonoBehaviour, IWindowData
         horizontalSlider.onValueChanged.AddListener(ValueListener);
     }
 
+    public void RefreshValues()
+    {
+    }
+
     public void ResetValues()
     {
-        horizontalSlider.value = expectedValue;
+        CurrentValue = horizontalSlider.value = expectedValue;
     }
 
     public void RandomizeValues()
     {
-         horizontalSlider.value = Random.Range(randomValueRange.x, randomValueRange.y);
+        CurrentValue = horizontalSlider.value = Random.Range(randomValueRange.x, randomValueRange.y);
     }
 
     public bool CheckValues()
     {
-        return Math.Abs(_currentValue - expectedValue) < 0.1f;
+        return Math.Abs(CurrentValue - expectedValue) < 0.1f;
     }
 
     //====================================================================================================================//
 
     private void ValueListener(float value)
     {
-        _currentValue = value;
+        CurrentValue = value;
     }
+
+    
 }
